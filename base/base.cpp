@@ -5,8 +5,10 @@
 #include <iostream>
 #include <array>
 #include <memory>
-#include <stdexcept>
+
+#include <vector>
 #include "base.h"
+#include "BaseClass.h"
 
 using namespace std;
 
@@ -54,6 +56,22 @@ int main() {
         cout << division(3.0, 0.0) << endl;
     } catch (const std::exception(exception1)) {
         std::cout << "Exception Alert!" << endl;
+    }
+
+
+    BaseClass bc("Stack init");
+    bc.mult2(4);
+    bc.showVal();
+
+    BaseClass *bc1 = new BaseClass("Heap init");
+    bc1->mult2(7);
+    bc1->showVal();
+    delete bc1;
+
+    vector<string> vector1 = {"Medeved","Balalika"};
+    vector1.push_back("Vodka");
+    for (auto& str:vector1){
+        cout <<str<<endl;
     }
 
     return 0;
