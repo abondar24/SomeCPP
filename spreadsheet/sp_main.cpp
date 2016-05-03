@@ -3,7 +3,7 @@
 //
 #include <iostream>
 #include "SpreadSheetCell.h"
-#include "SpreadSheet.h"
+#include "SpreadSheetImpl.h"
 using namespace std;
 
 int main() {
@@ -21,12 +21,50 @@ int main() {
     cout << "cell4 " << cell4.getString() << endl;
 
     SpreadSheetCell cell5;
-    cell5.setValue(5.6);
+    cell5.set(5.6);
     cout << "cell5 " << cell5.getValue() << endl;
 
     SpreadSheetCell cell6(cell1);
+    cell6.setColor(SpreadSheetCell::Blue);
     cout << "cell6 " << cell6.getValue() << endl;
 
+    SpreadSheetCell cell7=cell6+cell5;
+    cout << "cell7 " << cell7.getValue() << endl;
+
+    SpreadSheetCell cell8=cell2*cell5;
+    cout << "cell8 " << cell8.getValue() << endl;
+
+    SpreadSheetCell cell9=cell1-cell2;
+    cout << "cell9 " << cell9.getValue() << endl;
+
+    SpreadSheetCell cell10=cell5/cell2;
+    cout << "cell10 " << cell10.getValue() << endl;
+
+    SpreadSheetCell cell11=cell5+5;
+    cout << "cell11 " << cell11.getValue() << endl;
+
+    SpreadSheetCell cell12=3+7;
+    cout << "cell12 " << cell12.getValue() << endl;
+
+    SpreadSheetCell cell13=5*cell1;
+    cout << "cell13 " << cell13.getValue() << endl;
+
+    SpreadSheetCell cell14;
+    cell14 += cell1;
+    cout << "cell14 " << cell14.getValue() << endl;
+
+    SpreadSheetCell cell15;
+    cell15-=5;
+    cout << "cell15 " << cell15.getValue() << endl;
+
+    bool res =  cell8 > cell1;
+    cout << res << endl;
+
+    res =  cell5 <= cell1;
+    cout << res << endl;
+
+     res =  cell4 == cell1;
+    cout << res << endl;
 
     return 0;
 }

@@ -2,90 +2,39 @@
 // Created by abondar on 03.05.16.
 //
 
-#include <stdexcept>
 #include "SpreadSheet.h"
 
-
-SpreadSheet::SpreadSheet(int inWidth, int inHeight):
-width(inWidth),height(inHeight){
-    cells = new SpreadSheetCell* [width];
-
-    for (int i =0;i<width;i++){
-        cells[i]= new SpreadSheetCell[height];
-    }
+SpreadSheet::SpreadSheet(const SpreadSheetApplication& app,int inWidth, int inHeight){
+    impl = new SpreadSheetImpl(app,inWidth,inHeight);
 }
 
-SpreadSheet::SpreadSheet(const SpreadSheet &src) {
-   copyFrom(src);
+SpreadSheet::SpreadSheet(const SpreadSheet &src){
+    impl = new SpreadSheetImpl(*(src.impl));
 }
 
-SpreadSheet&  SpreadSheet::operator=(const SpreadSheet& rhs){
-
-    //self assign
-    if (this == &rhs){
-        return *this;
-    }
-
-    //free mem
-    for (int i=0;i<width;i++){
-        delete[] cells[i];
-    }
-    delete[] cells;
-    cells = nullptr;
-
-    //reallocate
-    copyFrom(rhs);
-
-    return  *this;
+SpreadSheet::SpreadSheet(const SpreadSheetApplication& app){
+    impl = new SpreadSheetImpl(app);
 }
 
-void SpreadSheet:: copyFrom(const SpreadSheet& src){
-    width = src.width;
-    height = src.height;
-    cells = new SpreadSheetCell* (width);
+SpreadSheet::~SpreadSheet(){
+    delete impl;
+    impl= nullptr;
+}
 
-    for (int i=0; i<width;i++){
-        cells[i] = new SpreadSheetCell[height];
-    }
-
-    for (int i=0; i<width;i++){
-        for (int j = 0; j < height; ++j) {
-            cells[i][j] = src.cells[i][j];
-        }
-    }
-
+SpreadSheet& SpreadSheet::operator=(const SpreadSheet &rc){
+    *impl = *(rc.impl);
+    return *this;
 }
 
 void SpreadSheet::setCellAt(int x, int y, const SpreadSheetCell &cell) {
-    if (!inRange(x,width) || !inRange(y,height)){
-
-        throw std::out_of_range("");
-    }
-
-    cells[x][y]=cell;
+    impl->setCellAt(x,y,cell);
 }
 
 SpreadSheetCell SpreadSheet::getCellAt(int x, int y) {
-    if (!inRange(x,width) || !inRange(y,height)){
 
-        throw std::out_of_range("");
-    }
-    return cells[x][y];
+    return impl->getCellAt(x,y);
 }
 
-
-bool SpreadSheet::inRange(int val, int upper)
-{
-    return (val >= 0 && val < upper);
-}
-
-
-SpreadSheet ::~SpreadSheet() {
-    for (int i=0;i<width;i++){
-        delete[] cells[i];
-    }
-
-    delete[] cells;
-
-    cells = nullptr;
+int SpreadSheet::getId() const {
+    return impl->getId();
 }

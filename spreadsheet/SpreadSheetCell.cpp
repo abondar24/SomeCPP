@@ -8,17 +8,18 @@
 using namespace std;
 
 
-SpreadSheetCell::SpreadSheetCell(){
+SpreadSheetCell::SpreadSheetCell() {
     val = 0;
     str = "";
+    numAccesses =0;
 }
 
 SpreadSheetCell::SpreadSheetCell(double initVal){
-    setValue(initVal);
+    set(initVal);
 }
 
 SpreadSheetCell::SpreadSheetCell(const string& initVal){//pass by reference
-    setString(initVal);
+    set(initVal);
 }
 
 SpreadSheetCell::SpreadSheetCell(const SpreadSheetCell& src):
@@ -27,32 +28,25 @@ val(src.val),str(src.str){
 }
 
 
-void SpreadSheetCell::setValue(double inVal) {
+void SpreadSheetCell::set(double inVal) {
     val = inVal;
     str = doubleToString(val);
 }
 
-void SpreadSheetCell::setString(string inStr) {
+void SpreadSheetCell::set(const string& inStr) {
     str = inStr;
     val = stringToDouble(str);
 }
 
-double SpreadSheetCell::getValue() const {
-    return val;
-}
 
-string SpreadSheetCell::getString() const {
-    return str;
-}
-
-string SpreadSheetCell::doubleToString(double inVal) const {
+string SpreadSheetCell::doubleToString(double inVal)  {
     ostringstream ostr;
     ostr << inVal;
 
     return ostr.str();
 }
 
-double SpreadSheetCell::stringToDouble(string& inString) const {
+double SpreadSheetCell::stringToDouble(string& inString)  {
 
     double  tmp;
     istringstream istr(inString);
@@ -63,5 +57,86 @@ double SpreadSheetCell::stringToDouble(string& inString) const {
     return tmp;
 }
 
+void SpreadSheetCell::setColor(Colors color){
+    mColor =color;
+};
 
+bool SpreadSheetCell::checkSpreadSheetCell(const SpreadSheetCell& cell){
+    return !(cell.str.empty());
+}
+
+const SpreadSheetCell operator+(const SpreadSheetCell& lc,const SpreadSheetCell& rc) {
+    SpreadSheetCell newCell;
+    newCell.set(lc.val+rc.val);
+    return newCell;
+}
+
+const SpreadSheetCell operator*(const SpreadSheetCell& lc,const SpreadSheetCell& rc)  {
+    SpreadSheetCell newCell;
+    newCell.set(lc.val*rc.val);
+    return newCell;
+}
+
+const SpreadSheetCell operator-(const SpreadSheetCell& lc,const SpreadSheetCell& rc) {
+    SpreadSheetCell newCell;
+    newCell.set(lc.val-rc.val);
+    return newCell;
+}
+
+const SpreadSheetCell operator/(const SpreadSheetCell& lc,const SpreadSheetCell& rc) {
+    if (rc.val==0){
+        throw invalid_argument("Divide by zero");
+    }
+    SpreadSheetCell newCell;
+    newCell.set(lc.val/rc.val);
+    return newCell;
+}
+
+
+bool operator==(const SpreadSheetCell& lc, const SpreadSheetCell& rc){
+    return (lc.val==rc.val);
+}
+
+bool operator>(const SpreadSheetCell& lc, const SpreadSheetCell& rc){
+    return (lc.val>rc.val);
+}
+
+bool operator<(const SpreadSheetCell& lc, const SpreadSheetCell& rc){
+    return (lc.val<rc.val);
+}
+
+bool operator!=(const SpreadSheetCell& lc, const SpreadSheetCell& rc){
+    return (lc.val!=rc.val);
+}
+
+bool operator>=(const SpreadSheetCell& lc, const SpreadSheetCell& rc){
+    return (lc.val>=rc.val);
+}
+
+bool operator<=(const SpreadSheetCell& lc, const SpreadSheetCell& rc){
+    return (lc.val<=rc.val);
+}
+
+SpreadSheetCell& SpreadSheetCell::operator+=(const SpreadSheetCell& rc){
+    set(val+rc.val);
+    return *this;
+}
+
+SpreadSheetCell& SpreadSheetCell::operator-=(const SpreadSheetCell& rc){
+    set(val-rc.val);
+    return *this;
+}
+
+SpreadSheetCell& SpreadSheetCell::operator*=(const SpreadSheetCell& rc){
+    set(val*rc.val);
+    return *this;
+}
+
+SpreadSheetCell& SpreadSheetCell::operator/=(const SpreadSheetCell& rc){
+    if (rc.val==0){
+        throw invalid_argument("Divide by zero");
+    }
+    set(val/rc.val);
+    return *this;
+}
 

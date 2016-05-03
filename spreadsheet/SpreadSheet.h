@@ -2,32 +2,30 @@
 // Created by abondar on 03.05.16.
 //
 
-#ifndef SOMECPP_SPREADSHEET_H
-#define SOMECPP_SPREADSHEET_H
+#ifndef SOMECPP_SPREADSHEED_H
+#define SOMECPP_SPREADSHEED_H
 
 #include "SpreadSheetCell.h"
+#include "SpreadSheetImpl.h"
 
+//interface
+class SpreaSheetImpl;
+class SpreadSheetApplication;
 class SpreadSheet {
+
 public:
-    SpreadSheet(int inWidth, int inHeight);
+    SpreadSheet(const SpreadSheetApplication& app,int inWidth, int inHeight);
+    SpreadSheet(const SpreadSheet &src);
+    SpreadSheet(const SpreadSheetApplication& app);
     ~SpreadSheet();
-
+    SpreadSheet& operator=(const SpreadSheet &rc);
     void setCellAt(int x, int y, const SpreadSheetCell &cell);
-    void copyFrom(const SpreadSheet& src);
-
     SpreadSheetCell getCellAt(int x, int y);
+    int getId() const;
 
 protected:
-    bool inRange(int val,int upper);
-    int width,height;
-    SpreadSheetCell** cells; //for allocating 2-dim arrays
-    static int counter=0;
-
-private:
-    SpreadSheet(const SpreadSheet& src);
-    SpreadSheet& operator=(const SpreadSheet& rhs);
-
+    SpreadSheetImpl* impl;
 };
 
 
-#endif //SOMECPP_SPREADSHEET_H
+#endif //SOMECPP_SPREADSHEED_H
