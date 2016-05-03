@@ -20,7 +20,7 @@ SpreadSheetImpl:: SpreadSheetImpl(const SpreadSheetApplication& app,int inWidth,
         }
 }
 
-SpreadSheetImpl::SpreadSheetImpl(const SpreadSheetImpl &src):
+SpreadSheetImpl::SpreadSheetImpl(const SpreadSheetImpl& src):
 app(src.app)
 {
     id = counter++;
@@ -64,7 +64,7 @@ void SpreadSheetImpl:: copyFrom(const SpreadSheetImpl& src){
 
 }
 
-void SpreadSheetImpl::setCellAt(int x, int y, const SpreadSheetCell &cell) {
+void SpreadSheetImpl::setCellAt(int x, int y, const SpreadSheetCell& cell) {
     if (!inRange(x,width) || !inRange(y,height)){
 
         throw std::out_of_range("");

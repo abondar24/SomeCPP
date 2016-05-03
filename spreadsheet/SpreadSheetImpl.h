@@ -11,10 +11,10 @@ class SpreadSheetApplication; //forward declaration
 class SpreadSheetImpl {
 public:
     SpreadSheetImpl(const SpreadSheetApplication& app,int inWidth =maxWidth, int inHeight=maxHeight);
-    SpreadSheetImpl(const SpreadSheetImpl &src);
+    SpreadSheetImpl(const SpreadSheetImpl& src);
     ~SpreadSheetImpl();
-    SpreadSheetImpl& operator=(const SpreadSheetImpl &rc);
-    void setCellAt(int x, int y, const SpreadSheetCell &cell);
+    SpreadSheetImpl& operator=(const SpreadSheetImpl& rc);
+    void setCellAt(int x, int y, const SpreadSheetCell& cell);
     SpreadSheetCell getCellAt(int x, int y);
     int getId() const;
 
@@ -23,7 +23,7 @@ public:
 
 protected:
     bool inRange(int val, int upper);
-    void copyFrom(const SpreadSheetImpl &src);
+    void copyFrom(const SpreadSheetImpl& src);
 
     int width, height;
     SpreadSheetCell **cells; //for allocating 2-dim arrays

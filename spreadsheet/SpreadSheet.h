@@ -15,10 +15,10 @@ class SpreadSheet {
 
 public:
     SpreadSheet(const SpreadSheetApplication& app,int inWidth, int inHeight);
-    SpreadSheet(const SpreadSheet &src);
+    SpreadSheet(const SpreadSheet& src);
     SpreadSheet(const SpreadSheetApplication& app);
     ~SpreadSheet();
-    SpreadSheet& operator=(const SpreadSheet &rc);
+    SpreadSheet& operator=(const SpreadSheet& rc);
     void setCellAt(int x, int y, const SpreadSheetCell &cell);
     SpreadSheetCell getCellAt(int x, int y);
     int getId() const;

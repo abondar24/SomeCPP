@@ -8,7 +8,7 @@ SpreadSheet::SpreadSheet(const SpreadSheetApplication& app,int inWidth, int inHe
     impl = new SpreadSheetImpl(app,inWidth,inHeight);
 }
 
-SpreadSheet::SpreadSheet(const SpreadSheet &src){
+SpreadSheet::SpreadSheet(const SpreadSheet& src){
     impl = new SpreadSheetImpl(*(src.impl));
 }
 
@@ -21,12 +21,12 @@ SpreadSheet::~SpreadSheet(){
     impl= nullptr;
 }
 
-SpreadSheet& SpreadSheet::operator=(const SpreadSheet &rc){
+SpreadSheet& SpreadSheet::operator=(const SpreadSheet& rc){
     *impl = *(rc.impl);
     return *this;
 }
 
-void SpreadSheet::setCellAt(int x, int y, const SpreadSheetCell &cell) {
+void SpreadSheet::setCellAt(int x, int y, const SpreadSheetCell& cell) {
     impl->setCellAt(x,y,cell);
 }
 
