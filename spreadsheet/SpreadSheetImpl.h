@@ -12,8 +12,11 @@ class SpreadSheetImpl {
 public:
     SpreadSheetImpl(const SpreadSheetApplication& app,int inWidth =maxWidth, int inHeight=maxHeight);
     SpreadSheetImpl(const SpreadSheetImpl& src);
+    SpreadSheetImpl(SpreadSheetImpl&& src);
     ~SpreadSheetImpl();
     SpreadSheetImpl& operator=(const SpreadSheetImpl& rc);
+    SpreadSheetImpl& operator=(SpreadSheetImpl&& rc);
+
     void setCellAt(int x, int y, const SpreadSheetCell& cell);
     SpreadSheetCell getCellAt(int x, int y);
     int getId() const;
