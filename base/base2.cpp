@@ -6,6 +6,10 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include "FileOpenError.h"
+#include "FileReadError.h"
 
 using namespace std;
 
@@ -16,6 +20,9 @@ void separateOddsEvens1(const int arr[], int size, int *&odds,
                         int &numOdds, int *&evens, int &numEvens);
 
 void separateOddsEvens2(const vector<int> &arr, vector<int> &odds, vector<int> &evens);
+
+
+void readIntFile(const string& fileName, vector<int>& dest) throw(FileOpenError,FileReadError);
 
 typedef vector<string> StringVector;
 
@@ -41,13 +48,44 @@ auto main() -> int {
     vector<int> unsplitVec = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     vector<int> odds,evens;
     separateOddsEvens(unsplit, 10, &oddNums, &numOdds, &evenNums, &numEvens);
-    separateOddsEvens1(unsplit, 10, oddNums, numOdds, evenNums, numEvens);
-    separateOddsEvens2(unsplitVec,odds,evens);
+
+    try {
+        separateOddsEvens1(unsplit, 10, oddNums, numOdds, evenNums, numEvens);
+    } catch (int a){
+        return 7;
+    }
+
+    try {
+        separateOddsEvens2(unsplitVec, odds, evens);
+    }catch (...){
+        cerr << "Vector error"<<endl;
+    }
 
     StringVector stV;
     stV.push_back("1");
     x = (int)stV.size();
     cout << x << endl;
+
+
+    string fileName = "/home/abondar/horovats.txt";
+    vector<int> intVec;
+
+    try{
+        readIntFile(fileName,intVec);
+    } catch (const FileError& e){
+        cerr << e.what() << endl;
+        return 1;
+    }
+
+    try{
+        ptr = new int[3];
+    } catch (const bad_alloc& e){
+        cerr << __FILE__ << "(" << __LINE__
+        << "): Unable to allocate memory!" << endl;
+        return 2;
+    }
+
+    delete ptr;
 
     return 0;
 }
@@ -110,5 +148,38 @@ void separateOddsEvens2(const vector<int> &arr, vector<int> &odds, vector<int> &
             evens.push_back(i);
         }
     }
+
+}
+
+void readIntFile(const string& fileName, vector<int>& dest) throw(FileOpenError,FileReadError){
+
+    ifstream istr;
+    int temp;
+    string line;
+    int lineNumber =0;
+    istr.open(fileName.c_str());
+    if(!istr.fail()){
+        throw FileOpenError(fileName);
+    }
+
+    while (!istr.eof()){
+        //read line by line
+        getline(istr,line);
+        lineNumber++;
+
+        //create  a string stream out of the line.
+        istringstream lineStream(line);
+
+        //read integers
+        while (lineStream >> temp){
+            dest.push_back(temp);
+        }
+        if (!lineStream.eof()){
+            istr.close();
+            throw FileReadError(fileName,lineNumber);
+        }
+    }
+
+    istr.close();
 
 }

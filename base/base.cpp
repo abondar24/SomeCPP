@@ -7,11 +7,10 @@
 #include <memory>
 
 #include <vector>
-#include "base.h"
 #include "BaseClass.h"
 
 using namespace std;
-
+double division(double inum, double denom);
 int main() {
     std::cout << "Let's start the show" << std::endl;
 
