@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <limits>
+#include <unordered_map>
 
 using namespace std;
 
@@ -34,6 +35,17 @@ auto main() -> int {
         str.append("A");
     }
 
+
+    unordered_map<int, string> um = {
+            {1, "item 1"},
+            {2, "item 2"},
+            {3, "item 3"},
+            {4, "item 4"}
+    };
+
+    for (auto& p:um) {
+        cout << p.first << " = " << p.second << endl;
+    }
 
 
     return 0;
