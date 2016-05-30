@@ -3,7 +3,9 @@
 //
 #include <iostream>
 #include "SpreadSheetCell.h"
-#include "SpreadSheetImpl.h"
+#include "SpreadSheet.h"
+#include "Grid.cpp"
+
 using namespace std;
 
 int main() {
@@ -66,6 +68,17 @@ int main() {
      res =  cell4 == cell1;
     cout << res << endl;
 
+
+    Grid<int> intGrid;
+    Grid<double> doubleGrid(11,11);
+    intGrid.setElementAt(1,1,7);
+
+    int x = intGrid.getElementAt(1,1);
+    cout << "x(1,1) " << x << endl;
+
+    Grid<SpreadSheetCell> spreadSheet;
+    SpreadSheetCell spreadSheetCell;
+    spreadSheet.setElementAt(6,5,spreadSheetCell);
 
 
     return 0;
