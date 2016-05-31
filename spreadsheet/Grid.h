@@ -7,14 +7,18 @@
 
 #include <iostream>
 using namespace std;
-template<typename T>
 
+template<typename T>
 class Grid {
 public:
     Grid(size_t inWidth=defWidth,size_t inHeight = defHeight);
     Grid(const Grid<T>& src);
+    template <typename E>
+    Grid(const Grid<E>& src);
     virtual ~Grid();
     Grid<T>& operator=(const Grid<T>& rhs);
+    template <typename E>
+    Grid<T>& operator=(const Grid<E>& rhs);
     void setElementAt(int x, int y, const T& elem);
     const T& getElementAt(int x, int y) const;
     size_t getHeight() const { return height;}
@@ -26,6 +30,9 @@ public:
 
 protected:
     void copyFrom(const Grid<T>& src);
+    template <typename E>
+    void copyFrom(const Grid<E>& src);
+
     T** cells;
     size_t width;
     size_t height;

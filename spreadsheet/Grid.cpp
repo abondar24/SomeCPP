@@ -27,6 +27,12 @@ Grid<T>::~Grid(){
 }
 
 template <typename T>
+template <typename E>
+Grid<T>::Grid(const Grid<E>& src){
+    copyFrom(src);
+}
+
+template <typename T>
 void Grid<T>::copyFrom(const Grid<T>& src){
     width = src.width;
     height = src.height;
@@ -43,7 +49,46 @@ void Grid<T>::copyFrom(const Grid<T>& src){
 }
 
 template <typename T>
+template <typename E>
+void Grid<T>::copyFrom(const Grid<E>& src){
+    width = src.getHeight();
+    height = src.getWidth();
+    cells = new T* [width];
+    for (size_t i=0;i<width;i++){
+        cells[i] = new T[height];
+    }
+
+    for (size_t i=0;i<width;i++){
+        for (size_t j=0;j<height;j++){
+            cells[i][j] =src.getElementAt(i,j);
+        }
+    }
+}
+
+
+template <typename T>
 Grid<T>& Grid<T>::operator=(const Grid<T>& rhs){
+    //self assign
+    if (this == &rhs) {
+        return *this;
+    }
+
+    //free mem
+    for (int i = 0; i < width; i++) {
+        delete[] cells[i];
+    }
+    delete[] cells;
+    cells = nullptr;
+
+    //reallocate
+    copyFrom(rhs);
+
+    return *this;
+}
+
+template <typename T>
+template <typename E>
+Grid<T>& Grid<T>::operator=(const Grid<E>& rhs){
     //self assign
     if (this == &rhs) {
         return *this;

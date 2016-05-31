@@ -5,6 +5,8 @@
 #include "SpreadSheetCell.h"
 #include "SpreadSheet.h"
 #include "Grid.cpp"
+#include "Grid1.cpp"
+
 
 using namespace std;
 
@@ -35,7 +37,6 @@ int main() {
 
     SpreadSheetCell cell8=cell2*cell5;
     cout << "cell8 " << cell8.getValue() << endl;
-
     SpreadSheetCell cell9=cell1-cell2;
     cout << "cell9 " << cell9.getValue() << endl;
 
@@ -80,6 +81,13 @@ int main() {
     SpreadSheetCell spreadSheetCell;
     spreadSheet.setElementAt(6,5,spreadSheetCell);
 
+    Grid1<int,10,10>grid;
+    grid.setElementAt(1,1,45);
+    cout << grid.getElementAt(1,1) << endl;
+
+    Grid1<int>grid1;
+    grid1.setElementAt(3,3,78);
+    cout << grid1.getElementAt(3,3) << endl;
 
     return 0;
 }
