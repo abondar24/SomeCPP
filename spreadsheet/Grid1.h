@@ -14,7 +14,7 @@ public:
     Grid1(){};
 
     template<typename E, size_t WIDTH1,size_t HEIGHT1>
-    Grid1(const Grid1<E,WIDTH1,HEIGHT1>& src){};
+    Grid1(const Grid1<E,WIDTH1,HEIGHT1>& src);
 
     template<typename E, size_t WIDTH1,size_t HEIGHT1>
     Grid1<T,WIDTH,HEIGHT>&operator=(const Grid1<E,WIDTH1,HEIGHT1>& rhs);

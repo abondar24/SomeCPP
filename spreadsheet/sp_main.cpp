@@ -6,6 +6,7 @@
 #include "SpreadSheet.h"
 #include "Grid.cpp"
 #include "Grid1.cpp"
+#include "GridChar.h"
 
 
 using namespace std;
@@ -88,6 +89,13 @@ int main() {
     Grid1<int>grid1;
     grid1.setElementAt(3,3,78);
     cout << grid1.getElementAt(3,3) << endl;
+
+    Grid<char*> strGrid(2,2);
+    string d="dada";
+    strGrid.setElementAt(0,0,d.c_str());
+    strGrid.setElementAt(1,1,"salo");
+    cout << strGrid.getElementAt(0,0) << endl;
+    cout << strGrid.getElementAt(1,1) << endl;
 
     return 0;
 }

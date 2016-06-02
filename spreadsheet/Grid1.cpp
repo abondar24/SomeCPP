@@ -6,7 +6,7 @@
 
 template<typename T, size_t WIDTH,size_t HEIGHT>
 template<typename E, size_t WIDTH1,size_t HEIGHT1>
-Grid1<T,WIDTH,HEIGHT>::Grid1(const Grid1<E,WIDTH1,HEIGHT1>& src){
+Grid1<T,WIDTH,HEIGHT>::Grid1(const Grid1<E,WIDTH1, HEIGHT1>& src){
     copyFrom(src);
 };
 
@@ -28,7 +28,7 @@ const T& Grid1<T,WIDTH,HEIGHT>::getElementAt(int x, int y) const {
 
 template<typename T, size_t WIDTH,size_t HEIGHT>
 template<typename E, size_t WIDTH1,size_t HEIGHT1>
-Grid1<T,WIDTH,HEIGHT>&operator=(const Grid1<E,WIDTH1,HEIGHT1>& rhs){
+Grid1<T,WIDTH,HEIGHT>& Grid1<T,WIDTH,HEIGHT>::operator=(const Grid1<E,WIDTH1,HEIGHT1>& rhs){
     copyFrom(rhs);
     return *this;
 };
