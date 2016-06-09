@@ -8,6 +8,8 @@
 #include "Grid1.cpp"
 #include "GridChar.h"
 
+#include <vector>
+#include "GridContainer.cpp"
 
 using namespace std;
 
@@ -96,6 +98,13 @@ int main() {
     strGrid.setElementAt(1,1,"salo");
     cout << strGrid.getElementAt(0,0) << endl;
     cout << strGrid.getElementAt(1,1) << endl;
+
+    GridContainer<int,vector<int>> intGrid1;
+
+    intGrid1.setElementAt(5,6,(3,4));
+    intGrid1.setElementAt(7,8,9);
+    cout<<intGrid1.getElementAt(5,6)<< endl;
+    cout<<intGrid1.getElementAt(7,8)<< endl;
 
     return 0;
 }
